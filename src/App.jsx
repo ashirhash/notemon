@@ -8,7 +8,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim() !== "") {
-      await fetch("http://localhost:3001/api/todos/create", {
+      await fetch("/api/todos/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -20,7 +20,7 @@ function App() {
     }
   };
   const handleEdit = async (id, newName) => {
-    await fetch("http://localhost:3001/api/todos/edit", {
+    await fetch("/api/todos/edit", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,12 +30,24 @@ function App() {
     await getTodos();
   };
   const handleDelete = async (id) => {
-    await fetch("http://localhost:3001/api/todos/delete", {
+    await fetch("/api/todos/delete", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ id: id }),
+    });
+    await getTodos();
+  };
+  const handleDeleteAll = async (todos) => {
+    const selectedItems = todos.filter((item) => item.isChecked);
+    const selectedIds = selectedItems.map((item) => item._id);
+    await fetch("/api/todos/deleteall", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ids: selectedIds }),
     });
     await getTodos();
   };
@@ -46,6 +58,7 @@ function App() {
       const updatedData = data.map((item) => ({
         ...item,
         isEditable: false,
+        isChecked: false,
         name: item.name || "",
       }));
       setTodos(updatedData);
@@ -53,13 +66,26 @@ function App() {
       console.error("Error fetching todos. Error: ", error);
     }
   };
-
   const toggleEdit = (id) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
         todo._id === id ? { ...todo, isEditable: !todo.isEditable } : todo
       )
     );
+  };
+  const toggleCheckboxes = (id) => {
+    if (!id) {
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) => ({ ...todo, isChecked: false }))
+      );
+    }
+    else {
+      setTodos((prevTodos) =>
+        prevTodos.map((todo) =>
+          todo._id === id ? { ...todo, isChecked: !todo.isChecked } : todo
+        )
+      );
+    }
   };
 
   const handleEditChange = (id, value) => {
@@ -69,10 +95,11 @@ function App() {
       )
     );
   };
-
   useEffect(() => {
     getTodos();
   }, []);
+
+  
 
   return (
     <>
@@ -85,9 +112,28 @@ function App() {
             className="bg-transparent p-1 text-lg border"
             type="text"
           />
-          <button type="submit" className="border px-5">
-            Save
-          </button>
+          {todos.some((item) => item.isChecked) ? (
+            <>
+            <button
+              type="button"
+              onClick={() => handleDeleteAll(todos)}
+              className="border px-5"
+            >
+              Delete Selected
+            </button>
+            <button
+              type="button"
+              onClick={() => toggleCheckboxes()}
+              className="border px-5"
+            >
+              Unselect All
+            </button>
+            </>
+          ) : (
+            <button type="submit" className="border px-5">
+              Save
+            </button>
+          )}
         </form>
         <ul>
           {todos.map((todo, index) => {
@@ -118,9 +164,16 @@ function App() {
                   </>
                 ) : (
                   <>
-                    <li key={index} className="p-1">
+                    <label className="todo-label" htmlFor={todo._id}>
+                      <input
+                        type="checkbox"
+                        onChange={() => toggleCheckboxes(todo._id)}
+                        checked={todo.isChecked}
+                        id={todo._id}
+                      />
+                      <span className="checkmark"></span>
                       {todo.name}
-                    </li>
+                    </label>
                     <button
                       onClick={() => handleDelete(todo._id)}
                       className="border rounded-full bg-red-50 text-black text-sm px-5"

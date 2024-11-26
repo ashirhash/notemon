@@ -75,6 +75,35 @@ app.post("/api/todos/delete", async (req, res) => {
   }
 });
 
+// Route to delete many users
+
+app.post("/api/todos/deleteall", async (req, res) => {
+
+  const { ids } = req.body;
+
+  console.log(ids);
+  
+
+  if (!Array.isArray(ids) || ids.length === 0) {
+
+    return res.status(400).json({ message: "Invalid or empty IDs array." });
+
+  }
+
+  try {
+
+    await Todo.deleteMany({ _id: { $in: ids } });
+    res.status(200).json({ message: "Todos deleted" });
+
+  } catch (error) {
+
+    res
+      .status(500)
+      .json({ message: "Error deleting Todos", error: error.message });
+  }
+
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
