@@ -29,6 +29,10 @@ Create an env file inside the backend folder. Create the following variables ins
 
 (A port which does not conflict with your React application)
 
+Go to package.json in the root directory and add the same port as the proxy key, for example:
+
+`"proxy": "http://localhost:3001"`
+
 ## How to run
 
 After making sure your mongoDB is live, you would need two terminals to run frontend and backend seperately.
