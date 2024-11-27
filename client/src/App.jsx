@@ -4,11 +4,13 @@ import "./styles.css";
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  console.log(backendUrl);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim() !== "") {
-      await fetch("/api/todos/create", {
+      await fetch(`${backendUrl}/api/todos/create`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -20,7 +22,7 @@ function App() {
     }
   };
   const handleEdit = async (id, newName) => {
-    await fetch("/api/todos/edit", {
+    await fetch(`${backendUrl}/api/todos/edit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +32,7 @@ function App() {
     await getTodos();
   };
   const handleDelete = async (id) => {
-    await fetch("/api/todos/delete", {
+    await fetch(`${backendUrl}/api/todos/delete`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +44,7 @@ function App() {
   const handleDeleteAll = async (todos) => {
     const selectedItems = todos.filter((item) => item.isChecked);
     const selectedIds = selectedItems.map((item) => item._id);
-    await fetch("/api/todos/deleteall", {
+    await fetch(`${backendUrl}/api/todos/deleteall`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,7 +55,7 @@ function App() {
   };
   const getTodos = async () => {
     try {
-      const response = await fetch("/api/todos");
+      const response = await fetch(`${backendUrl}/api/todos`);
       const data = await response.json();
       const updatedData = data.map((item) => ({
         ...item,
