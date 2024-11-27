@@ -53,7 +53,7 @@ function App() {
   };
   const getTodos = async () => {
     try {
-      const response = await fetch("http://localhost:3001/api/todos");
+      const response = await fetch("/api/todos");
       const data = await response.json();
       const updatedData = data.map((item) => ({
         ...item,

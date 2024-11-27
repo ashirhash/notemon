@@ -19,9 +19,9 @@ From the root of the project, install node_modules for both root and the backend
   cd backend
   npm install
 ```
-Create an env file inside the backend folder. Create the following variables inside the env file, which by default are as follows:
+Create an env file inside the backend folder. Create the following variables inside the env file:
 
-`MONGODB_URI = mongodb://localhost:27017/todolist` 
+`MONGODB_URI` 
 
 ([MongoDB connection string](https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string))
 
@@ -29,7 +29,7 @@ Create an env file inside the backend folder. Create the following variables ins
 
 (A port which does not conflict with your React application)
 
-Go to package.json in the root directory and add the same port as the proxy key, for example:
+Go to package.json in the root directory and add the same port as the proxy key, for example if you set `PORT=3001`, then set:
 
 `"proxy": "http://localhost:3001"`
 
@@ -43,7 +43,7 @@ From the root of the project, run
   npm run start
 ```
 
-From a new terminal, run
+From a new terminal and root of the project, run
 
 ```bash
   cd backend
