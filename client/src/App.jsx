@@ -4,7 +4,7 @@ import "./styles.css";
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || "noUrl"
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "noUrlSet"
 
   const handleSubmit = async (e) => {
     e.preventDefault();
