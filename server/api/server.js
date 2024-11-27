@@ -3,13 +3,13 @@ import mongoose from "mongoose";
 import cors from "cors";
 import "dotenv/config";
 import dotenv from "dotenv";
-import { Todo } from "./models/Todo.js";
+import { Todo } from "../models/Todo.js";
 
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Load environment variables from the .env file
-dotenv.config();
+dotenv.config({path: "../.env"});
 
 app.use(cors());
 app.use(express.json());
