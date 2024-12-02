@@ -11,41 +11,52 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Installation
 
-From the root of the project, install node_modules for both root and the backend.
+Install node modules for both frontend and backend.
 
 ```bash
-  npm install
+cd frontend
+npm install
 ```
 
 ```bash
-  cd backend
-  npm install
+cd backend
+npm install
 ```
-Create an env file inside the backend folder. Create the following variables inside the env file:
 
-`MONGODB_URI` ([MongoDB connection string](https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string))
+#### Environment Variables
 
-`PORT` (A port which does not conflict with your React application)
+Create an env file inside the frontend folder with the following variables:
 
-Go to package.json in the root directory and add the same port as the proxy key, for example if you set `PORT=3001`, then set:
+```REACT_APP_BACKEND_URL``` 
 
-`"proxy": "http://localhost:3001"`
+[a url where the backend is hosted]
 
-## How to run
+Create an env file inside the backend folder with the following variables:
 
-After making sure your mongoDB is live, you would need two terminals to run frontend and backend seperately.
+`MONGODB_URI` 
+
+[[MongoDB connection string](https://www.mongodb.com/resources/products/fundamentals/mongodb-connection-string)]
+
+`PORT` 
+
+[A port which does not conflict with your React application e.g `3001`]
+
+## How to run (locally)
+
+After making sure your mongoDB is live, you would need two terminals to run frontend and backend seperately:
 
 From the root of the project, run
 
 ```bash
-  npm run start
+cd frontend
+npm run start
 ```
 
-From a new terminal and root of the project, run
+then from a new terminal, run:
 
 ```bash
-  cd backend
-  node server.js
+cd backend
+npm run start
 ```
 
 And that's it! Your project should be up and running.
