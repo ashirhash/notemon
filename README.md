@@ -1,15 +1,15 @@
-# NoteMon - A simple note-taking app
+# NoteMon - A simple note-taking app 📝
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), with a backend in Express and MongoDB.
 
 **[Live Demo](https://notemon.vercel.app/)**
 
-## Prerequisites
+## 💻 Prerequisites
 - Node.js >= 18.0.0
 - npm >= 9.0.0
 - MongoDB running locally or in a cloud environment
 
-## Installation
+## 📖 Installation
 
 Install node modules for both frontend and backend.
 
@@ -41,7 +41,7 @@ Create an env file inside the backend folder with the following variables:
 
 [A port which does not conflict with your React application e.g `3001`]
 
-## How to run (locally)
+## 🚀 How to run (locally)
 
 After making sure your mongoDB is live, you would need two terminals to run frontend and backend seperately:
 
@@ -59,4 +59,4 @@ cd backend
 npm run start
 ```
 
-And that's it! Your project should be up and running.
+And that's it! Your project should be up and running. ❤
