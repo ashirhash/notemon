@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./styles.css";
+import { useLoader } from "./contexts/LoaderContext";
+import Loader from "./components/Loader";
 
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
   const backendUrl = process.env.REACT_APP_BACKEND_URL || "noUrlSet";
+  const { loading, setLoading } = useLoader();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (input.trim() !== "") {
+      setLoading(true);
       await fetch(`${backendUrl}/api/todos/create`, {
         method: "POST",
         headers: {
@@ -18,9 +22,11 @@ function App() {
       });
       await getTodos();
       setInput("");
+      setLoading(false);
     }
   };
   const handleEdit = async (id, newName) => {
+    setLoading(true);
     await fetch(`${backendUrl}/api/todos/edit`, {
       method: "POST",
       headers: {
@@ -29,8 +35,10 @@ function App() {
       body: JSON.stringify({ id, name: newName }),
     });
     await getTodos();
+    setLoading(false);
   };
   const handleDelete = async (id) => {
+    setLoading(true);
     await fetch(`${backendUrl}/api/todos/delete`, {
       method: "POST",
       headers: {
@@ -39,8 +47,10 @@ function App() {
       body: JSON.stringify({ id: id }),
     });
     await getTodos();
+    setLoading(false);
   };
   const handleDeleteAll = async (todos) => {
+    setLoading(true);
     const selectedItems = todos.filter((item) => item.isChecked);
     const selectedIds = selectedItems.map((item) => item._id);
     await fetch(`${backendUrl}/api/todos/deleteall`, {
@@ -51,8 +61,10 @@ function App() {
       body: JSON.stringify({ ids: selectedIds }),
     });
     await getTodos();
+    setLoading(false);
   };
   const getTodos = async () => {
+    setLoading(true);
     try {
       const response = await fetch(`${backendUrl}/api/todos`);
       const data = await response.json();
@@ -65,6 +77,9 @@ function App() {
       setTodos(updatedData);
     } catch (error) {
       console.error("Error fetching todos. Error: ", error);
+    }
+    finally {
+      setLoading(false);
     }
   };
   const toggleEdit = (id) => {
@@ -87,7 +102,6 @@ function App() {
       );
     }
   };
-
   const handleEditChange = (id, value) => {
     setTodos((prevTodos) =>
       prevTodos.map((todo) =>
@@ -95,19 +109,23 @@ function App() {
       )
     );
   };
+
   useEffect(() => {
+    setLoading(true);
     getTodos();
+    setLoading(false);
   }, []);
 
   return (
     <>
-      <div className="flex  flex-col justify-center h-full items-center min-h-screen bg-accent-purple w-full ">
-        <div className=" bg-accent-purple rounded-lg h-full ">
+      {loading && <Loader />}
+      <div className="flex  flex-col justify-center h-full items-center min-h-screen bg-accent-purple w-full px-2 ">
+        <div className=" bg-accent-purple rounded-lg h-full">
           <form onSubmit={handleSubmit} className="flex gap-5 mb-5">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className=" p-1 w-full bg-transparent border-b-2 border-accent-red rounded-none text-accent-white placeholder:text-accent-white"
+              className=" p-1 flex-grow bg-transparent border-b-2 border-accent-red rounded-none text-accent-white placeholder:text-accent-white"
               type="text"
               placeholder="Type Here Messege"
             />
@@ -115,17 +133,17 @@ function App() {
               <>
                 <button
                   type="button"
+                  onClick={() => toggleCheckboxes()}
+                  className="border border-accent-white bg-transparent px-5"
+                >
+                  Unselect All
+                </button>
+                <button
+                  type="button"
                   onClick={() => handleDeleteAll(todos)}
                   className="border border-accent-red bg-transparent px-5"
                 >
                   Delete Selected
-                </button>
-                <button
-                  type="button"
-                  onClick={() => toggleCheckboxes()}
-                  className="border border-accent-red bg-transparent px-5"
-                >
-                  Unselect All
                 </button>
               </>
             ) : (

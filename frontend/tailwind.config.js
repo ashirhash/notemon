@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         "accent-purple" : "#0b0225",
+        "accent-purple-transparent" : "#18074990",
         "accent-red" : "#ff2850",
         "accent-black" : "#222",
         "accent-white" : "#fafafa"
