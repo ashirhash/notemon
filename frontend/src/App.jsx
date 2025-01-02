@@ -4,7 +4,7 @@ import "./styles.css";
 function App() {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || "noUrlSet"
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || "noUrlSet";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -79,8 +79,7 @@ function App() {
       setTodos((prevTodos) =>
         prevTodos.map((todo) => ({ ...todo, isChecked: false }))
       );
-    }
-    else {
+    } else {
       setTodos((prevTodos) =>
         prevTodos.map((todo) =>
           todo._id === id ? { ...todo, isChecked: !todo.isChecked } : todo
@@ -100,19 +99,15 @@ function App() {
     getTodos();
   }, []);
 
-
-
   return (
     <>
-      <div className="flex  flex-col justify-center items-center  w-full ">
-
-        <div className="text-6xl uppercase  font-bold p-32 max-sm:h-64 max-md:h-96 max-sm:text-4xl max-sm:p-20 max-lg:text-5xl max-lg:p-28 text-center bg-[url(bg1.jpg)] bg-cover bg-center h-60 w-full  text-white">Capture Your Thoughts and Never Miss a Detail</div>
-        <div className="p-5 bg-green-800 m-7 rounded-lg h-full ">
+      <div className="flex  flex-col justify-center items-center bg-accent-purple w-full ">
+        <div className="p-5 bg-accent-purple m-7 rounded-lg h-full ">
           <form onSubmit={handleSubmit} className="flex gap-5 ">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className=" p-1 w-full  border-2 text-black  rounded-md"
+              className=" p-1 w-full bg-transparent border-b-2 border-accent-red rounded-none text-accent-white placeholder:text-accent-white"
               type="text"
               placeholder="Type Here Messege"
             />
@@ -121,14 +116,14 @@ function App() {
                 <button
                   type="button"
                   onClick={() => handleDeleteAll(todos)}
-                  className="border px-5"
+                  className="border border-accent-red bg-transparent px-5"
                 >
                   Delete Selected
                 </button>
                 <button
                   type="button"
                   onClick={() => toggleCheckboxes()}
-                  className="border px-5"
+                  className="border border-accent-red bg-transparent px-5"
                 >
                   Unselect All
                 </button>
@@ -142,36 +137,38 @@ function App() {
           <ul>
             {todos.map((todo, index) => {
               return (
-                <div key={todo._id} className="flex gap-5 py-2 items-start max-sm:flex-col justify-start">
+                <div
+                  key={todo._id}
+                  className="flex gap-5 py-2 items-start max-sm:flex-col justify-between"
+                >
                   {todo.isEditable ? (
                     <>
-
                       <input
                         value={todo.name || ""}
                         onChange={(e) =>
                           handleEditChange(todo._id, e.target.value)
                         }
-                        className="bg-transparent p-1 text-lg border"
+                        className="bg-transparent border-b-2 border-accent-red text-lg"
                         type="text"
                       />
+                      <div className=" flex gap-4">
                         <button
                           onClick={() => toggleEdit(todo._id)}
-                          className="border rounded-lg bg-red-50 text-black text-sm px-5"
+                          className=" bg-accent-red text-accent-white text-sm px-5 py-1"
                         >
                           Cancel
                         </button>
                         <button
                           onClick={() => handleEdit(todo._id, todo.name)}
-                          className="border rounded-lg bg-red-50 text-black text-sm px-5"
+                          className=" bg-accent-red text-accent-white text-sm px-5 py-1"
                         >
                           Update
                         </button>
-
-
+                      </div>
                     </>
                   ) : (
                     <>
-                      <label className="todo-label" htmlFor={todo._id}>
+                      <label className="todo" htmlFor={todo._id}>
                         <input
                           type="checkbox"
                           onChange={() => toggleCheckboxes(todo._id)}
@@ -181,22 +178,20 @@ function App() {
                         <span className="checkmark"></span>
                         {todo.name}
                       </label>
-                      <div className=" w-full flex gap-4 ">
-
-                      <button
-                        onClick={() => handleDelete(todo._id)}
-                        className="border rounded-sm bg-red-50 text-black text-sm px-5"
-                      >
-                        Delete
-                      </button>
-                      <button
-                        onClick={() => toggleEdit(todo._id)}
-                        className="border rounded-sm bg-red-50 text-black text-sm px-5"
-                      >
-                        Edit
-                      </button>
+                      <div className=" flex gap-4">
+                        <button
+                          onClick={() => handleDelete(todo._id)}
+                          className="bg-accent-red text-accent-white text-sm px-5 py-1"
+                        >
+                          Delete
+                        </button>
+                        <button
+                          onClick={() => toggleEdit(todo._id)}
+                          className="bg-accent-red text-accent-white text-sm px-5 py-1"
+                        >
+                          Edit
+                        </button>
                       </div>
-
                     </>
                   )}
                 </div>
@@ -205,7 +200,6 @@ function App() {
           </ul>
         </div>
       </div>
-
     </>
   );
 }
