@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 /* GLOBALS */
-*::-webkit-scrollbar{
-display: none;
+*::-webkit-scrollbar {
+  display: none;
 }
 body {
   margin: 0;
@@ -14,7 +14,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #fff;
-  @apply font-poppins
+  @apply font-poppins;
 }
 
 /* CUSTOM */
@@ -22,9 +22,11 @@ body {
 .todo-label {
   position: relative;
   display: flex;
-  align-items: start;
+  align-items: center;
   justify-content: start;
   gap: 5px;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .todo-label input {
@@ -33,28 +35,26 @@ body {
   cursor: pointer;
   height: 0;
   width: 0;
-  
 }
-input:focus{
+input:focus {
   outline: none;
 }
 .todo-label .checkmark {
   position: fixed;
   display: inline-block;
   top: 0;
-  left: 0; 
+  left: 0;
   margin-right: 1rem;
   height: 20px;
-aspect-ratio: 1;  background-color: #eee;
+  aspect-ratio: 1;
+  background-color: #eee;
   position: relative;
-  border-radius: 2px;
+  border-radius: 50%;
 }
 
-.todo-label:hover input~.checkmark {
-  background-color: #ccc;
+.todo-label:hover input:not(:checked) ~ .checkmark {
+  @apply bg-accent-red rounded-full
 }
-
-.todo-label input:checked~.checkmark {}
 
 .todo-label .checkmark:after {
   content: "";
@@ -62,8 +62,7 @@ aspect-ratio: 1;  background-color: #eee;
   width: 70%;
   height: 70%;
   display: none;
-  border-radius: 2px;
-  background-color: #2196F3;
+  @apply bg-accent-red rounded-full;
   top: 0;
   left: 0;
   bottom: 0;
@@ -71,18 +70,6 @@ aspect-ratio: 1;  background-color: #eee;
   margin: auto;
 }
 
-.todo-label input:checked~.checkmark:after {
+.todo-label input:checked ~ .checkmark:after {
   display: block;
 }
-
-/* .todo-label .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-} */

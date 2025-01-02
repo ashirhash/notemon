@@ -101,9 +101,9 @@ function App() {
 
   return (
     <>
-      <div className="flex  flex-col justify-center items-center bg-accent-purple w-full ">
-        <div className="p-5 bg-accent-purple m-7 rounded-lg h-full ">
-          <form onSubmit={handleSubmit} className="flex gap-5 ">
+      <div className="flex  flex-col justify-center h-full items-center min-h-screen bg-accent-purple w-full ">
+        <div className=" bg-accent-purple rounded-lg h-full ">
+          <form onSubmit={handleSubmit} className="flex gap-5 mb-5">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -168,7 +168,7 @@ function App() {
                     </>
                   ) : (
                     <>
-                      <label className="todo" htmlFor={todo._id}>
+                      <label className="todo-label" htmlFor={todo._id}>
                         <input
                           type="checkbox"
                           onChange={() => toggleCheckboxes(todo._id)}
