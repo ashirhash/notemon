@@ -61,4 +61,4 @@ cd backend
 npm run start
 ```
 
-And that's it! Your project should be up and running ❤.
+And that's it! Your project should be up and running ❤
