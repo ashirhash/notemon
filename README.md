@@ -2,7 +2,7 @@
 
 ![Cover Image](https://raw.githubusercontent.com/ashirhashmi/notemon/refs/heads/main/frontend/public/github-cover.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), with a backend in Express and MongoDB
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), with a backend in Express and MongoDB.
 
 **[Live Demo](https://notemon.vercel.app/)**
 
