@@ -13,7 +13,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## 📖 Installation
 
-Install node modules for both frontend and backend.
+Install node modules for both frontend and backend
 
 ```bash
 cd frontend
