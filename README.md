@@ -9,7 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## 💻 Prerequisites
 - Node.js >= 18.0.0
 - npm >= 9.0.0
-- MongoDB running locally or in a cloud environment
+- MongoDB running locally or in a cloud environment.
 
 ## 📖 Installation
 
